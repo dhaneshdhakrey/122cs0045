@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PopularPost />} />
           <Route path="/topusers" element={<TopUsers />} />
-          <Route path="/feed" element={<feed/>} />
+          <Route path="/feed" element={<Feed/>} />
         </Routes>
       </div>
     </Router>

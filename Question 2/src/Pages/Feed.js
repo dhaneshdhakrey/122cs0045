@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostCard from "../Components/Card";
-
+import LoadingComponent from "../Components/Loading";
 function Feed() {
   useEffect(() => {
     fetchPosts();
   }, []);
 
   const [posts, setPosts] = useState([]);
+  let [isLoading, setIsLoading] = useState(true);
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/posts?type=lates");
+      const response = await axios.get("http://localhost:8000/posts?type=latest");
+      setIsLoading(false);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
+  if(isLoading){
+    return<LoadingComponent/>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
