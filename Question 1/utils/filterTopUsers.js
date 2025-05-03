@@ -1,51 +1,51 @@
 //this will make to get a total post of all users and filter the top 5 users
 const axios = require("axios");
+const getUserPosts = require("./getUserPosts.js");
+const getPostComments = require("./getPostComments.js");
 
-
-
-async function getUserPosts(userId) {
-  try {
-    let url="http://20.244.56.144/evaluation-service";
-    const response = await axios.get(`${url}/users/${userId}/posts`);
-    return response.data.posts || [];
-  } catch (err) {
-    console.error(`Error fetching posts for user ${userId}:`, err.message);
-    return [];
-  }
-}
-
-async function getPostComments(postId) {
-  try {
-    const response = await axios.get(`${BASE_URL}/posts/${postId}/comments`);
-    return response.data.comments || [];
-  } catch (err) {
-    console.error(`Error fetching comments for post ${postId}:`, err.message);
-    return [];
-  }
-}
 
 async function filterTopUsers(users) {
   const userCommentCounts = [];
+  console.log("users are",users);
 
-  for (const user of users) {
-    const posts = await getUserPosts(user.id);
+  const postArrays = await Promise.all(users.map(user => getUserPosts(user.id)));
 
-    let totalComments = 0;
+// Loop over postArrays[i] for each user
+// for (let i = 0; i < users.length; i++) {
+//   const user = users[i];
+//   const posts = postArrays[i];
 
-    for (const post of posts) {
-      const comments = await getPostComments(post.id);
-      totalComments += comments.length;
+//   let totalComments = 0;
 
+//   const commentCounts = await Promise.all(posts.map(post => getPostComments(post.id)));
+//   totalComments = commentCounts.reduce((sum, comments) => sum + comments.length, 0);
 
-      //counting total comments for each user
-    }
+//   userCommentCounts.push({
+//     id: user.id,
+//     name: user.name,
+//     commentCount: totalComments
+//   });
+// }
+for (let i = 0; i < users.length; i++) {
+  const user = users[i];
+  const posts = postArrays[i];
 
-    userCommentCounts.push({
-      id: user.id,
-      name: user.name,
-      commentCount: totalComments
-    });
+  let totalComments = 0;
+
+  for (let j = 0; j < posts.length; j++) {
+    const comments = await getPostComments(posts[j].id);
+    totalComments += comments.length;
+    await new Promise((res) => setTimeout(res, 200)); // Optional delay between requests
   }
+
+  userCommentCounts.push({
+    id: user.id,
+    name: user.name,
+    commentCount: totalComments
+  });
+}
+
+
 
 
   userCommentCounts.sort((a, b) => b.commentCount - a.commentCount);

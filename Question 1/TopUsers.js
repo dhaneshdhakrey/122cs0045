@@ -1,8 +1,9 @@
-const getAllUsers=require("./getUsers");
-const filterTopUsers=require("./utils/filterTopUsers");
+const getAllUsers=require("./utils/getUsers.js");
+const filterTopUsers=require("./utils/filterTopUsers.js");
 async function TopUsers(req,res){
     try {
         const users = await getAllUsers();
+        console.log(users);
         // Filter top users based on comments
         const topUsers = await filterTopUsers(users); 
         
