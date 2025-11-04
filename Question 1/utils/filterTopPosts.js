@@ -22,7 +22,8 @@ async function filterTopPosts(type) {
   if (type === "latest") {
     
     allPosts.sort((a, b) => b.id - a.id);
-    return allPosts.slice(0, 5);
+    // return allPosts.slice(0, 5);
+    return allPosts.slice(0,10);
   }
 
   if (type === "popular") {

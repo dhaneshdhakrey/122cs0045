@@ -4,6 +4,7 @@ import PopularPost from "./Pages/PopularPost";
 import Navbar from "./Components/Navbar";
 import TopUsers from "./Pages/Top_Users";
 import Feed from "./Pages/Feed";
+import TestPage from "./Pages/TestPage1";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<PopularPost />} />
+          {/* <Route path="/" element={<TestPage/>}/> */}
           <Route path="/topusers" element={<TopUsers />} />
           <Route path="/feed" element={<Feed/>} />
         </Routes>

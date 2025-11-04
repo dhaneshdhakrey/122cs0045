@@ -13,6 +13,7 @@ let [isLoading, setIsLoading] = useState(true);
     try {
       const response = await axios.get("http://localhost:8000/users");
       setIsLoading(false);
+     let sortedposts= response.data.sort((a,b)=>b.postcount-a.postcount).slice(0,5);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);

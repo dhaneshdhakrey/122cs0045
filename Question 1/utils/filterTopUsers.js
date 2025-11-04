@@ -35,7 +35,7 @@ for (let i = 0; i < users.length; i++) {
   for (let j = 0; j < posts.length; j++) {
     const comments = await getPostComments(posts[j].id);
     totalComments += comments.length;
-    await new Promise((res) => setTimeout(res, 200)); // Optional delay between requests
+    await new Promise((res) => setTimeout(res, 200));//delay k liye limit a raha sayad
   }
 
   userCommentCounts.push({

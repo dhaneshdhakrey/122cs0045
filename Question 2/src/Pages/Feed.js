@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import {BrowserRouter} from "react-router-dom"
 import axios from "axios";
 import PostCard from "../Components/Card";
 import LoadingComponent from "../Components/Loading";
 function Feed() {
   useEffect(() => {
     fetchPosts();
+    
+    const interval=setInterval(fetchPosts,5000)
+    return ()=>clearInterval(interval);
   }, []);
 
   const [posts, setPosts] = useState([]);

@@ -11,9 +11,10 @@ async function getPostComments(postId) {
         }
     });
     
-    return response.data.comments || [];
+    return response.data.comments;
   } catch (err) {
-    console.error(`Error fetching comments for post ${postId}:`, err.message);
+    // console.error(`error fetchig comments for postid ${postId}:`, err.message);
+     console.error("error fetchig comments", err.message);
     return [];
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingComponent from "../Components/Loading";
 import PostCard from "../Components/Card";
 let tempobj=[
     {
@@ -36,20 +37,22 @@ let tempobj=[
 
 function PopularPost() {
   useEffect(() => {
-    // fetchPosts();
+     fetchPosts();
   }, []);
 
-  const [posts, setPosts] = useState(tempobj);
+  const [posts, setPosts] = useState([]);
+  const [isLoading,setisLoading]=useState(true);
 
   const fetchPosts = async () => {
     try {
       const response = await axios.get("http://localhost:8000/posts?type=popular");
+      setisLoading(false);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
-
+if(isLoading)return <LoadingComponent/>
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Popular Posts</h1>
